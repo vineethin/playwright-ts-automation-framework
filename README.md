@@ -53,6 +53,18 @@ BASE_URL=https://your-app-url.com
 USERNAME=
 PASSWORD=
 ```
+---
+
+## Optional: AI-assisted Testing (Experimental)
+
+This framework supports an optional AI mode to help generate test ideas / steps (extensible for future auto test generation).
+
+### Enable AI in `.env`
+
+```env
+AI_ENABLED=true
+OPENAI_API_KEY=your_key_here
+OPENAI_MODEL=gpt-4o-mini
 
 ### 3) Run tests
 ```bash
