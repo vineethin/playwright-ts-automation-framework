@@ -1,4 +1,5 @@
 # Playwright TypeScript Automation Framework (Starter)
+[![CI](https://github.com/vineethin/playwright-ts-automation-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/vineethin/playwright-ts-automation-framework/actions/workflows/ci.yml)
 ![Playwright](https://img.shields.io/badge/Playwright-Test-green)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue)
 ![License](https://img.shields.io/badge/License-MIT-brightgreen)
