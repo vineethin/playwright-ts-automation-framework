@@ -181,6 +181,43 @@ Note:
   - `npm run auth:setup`
   - `npm run test:auth`
 
+## FAQ / Troubleshooting
+
+### 1) I see "No tests found"
+Make sure your test file name ends with:
+- `.spec.ts`
+
+Example:
+- `tests/login.spec.ts`
+
+### 2) My auth tests fail with missing storageState.json
+Run auth setup first:
+```bash
+npm run auth:setup
+Then run authenticated tests:
+
+npm run test:auth
+
+3) CI fails but local passes
+
+CI runs in Linux and headless mode. Try:
+
+npx playwright test --headed
+
+
+Also prefer stable locators:
+
+getByRole, getByLabel, getByText
+
+4) SSO requires MFA
+
+Use manual login once:
+
+npm run auth:setup
+npm run test:auth
+
+
+See: docs/SSO.md
 
 ## Contributing
 Contributions are welcome.
