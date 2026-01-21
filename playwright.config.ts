@@ -5,7 +5,7 @@ export default defineConfig({
   timeout: 30_000,
   retries: 1,
 
-  globalSetup: require.resolve('./tests/global-setup'),
+  //globalSetup: require.resolve('./tests/global-setup'),
 
   outputDir: 'test-results',
 
@@ -13,7 +13,7 @@ export default defineConfig({
 
   use: {
     headless: true,
-    storageState: 'test-results/storageState.json',
+    //storageState: 'test-results/storageState.json',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     trace: 'on-first-retry',
