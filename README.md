@@ -24,6 +24,13 @@ A production-style **Playwright + TypeScript** automation framework designed to 
 ---
 
 ## Getting Started (30 seconds)
+## Use as a Template (Recommended)
+Click **Use this template** on GitHub to generate a new repo for your application, then:
+1) `npm install`
+2) `cp .env.example .env` and set `BASE_URL`
+3) `npm test`
+
+
 
 ### 1) Install dependencies
 ```bash
