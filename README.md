@@ -8,6 +8,12 @@
 
 A production-style **Playwright + TypeScript** automation framework designed to be reusable for **any web application** (including apps using **SSO**).
 
+### AI Demo (Optional)
+Generate stable locator suggestions (JSON output):
+
+```bash
+npm run ai:locators -- https://playwright.dev "get started link"
+
 ## Key Features
 - Page Object Model (POM)
 - Custom fixtures for dependency injection (page objects per test)
