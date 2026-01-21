@@ -1,4 +1,7 @@
 # Playwright TypeScript Automation Framework (Starter)
+![Playwright](https://img.shields.io/badge/Playwright-Test-green)
+![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue)
+![License](https://img.shields.io/badge/License-MIT-brightgreen)
 
 A production-style **Playwright + TypeScript** automation framework designed to be reusable for **any web application** (including apps using **SSO**).
 
