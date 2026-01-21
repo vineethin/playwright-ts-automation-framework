@@ -9,8 +9,6 @@
 
 A production-style **Playwright + TypeScript** automation framework designed to be reusable for **any web application** (including apps using **SSO**).
 
----
-
 ## Key Features
 
 - Page Object Model (POM)
@@ -20,32 +18,11 @@ A production-style **Playwright + TypeScript** automation framework designed to 
 - HTML reporting + test artifacts (**screenshots / videos / traces**)
 - Optional auth session reuse via **storageState**
 - Works for **any BASE_URL** using `.env`
+- Optional **AI locator suggestions** (OpenAI) for stable selectors (experimental)
 
 ---
 
 ## Getting Started (30 seconds)
-
-### Use as a Template (Recommended)
-
-Click **Use this template** on GitHub to generate a new repo for your application, then run:
-
-```bash
-npm install
-cp .env.example .env
-npm test
-```
-
----
-
-## Prerequisites
-
-- Node.js LTS
-- VS Code (recommended)
-- Git (optional)
-
----
-
-## Quick Start
 
 ### 1) Install dependencies
 
@@ -62,15 +39,12 @@ Create your local `.env` file from the example:
 cp .env.example .env
 ```
 
-Update `.env`:
+Edit `.env`:
 
 ```env
 BASE_URL=https://your-app-url.com
 USERNAME=
 PASSWORD=
-AI_ENABLED=false
-OPENAI_API_KEY=
-OPENAI_MODEL=gpt-4o-mini
 ```
 
 ### 3) Run tests
@@ -79,63 +53,45 @@ OPENAI_MODEL=gpt-4o-mini
 npm test
 ```
 
-Open HTML report:
+### SSO Documentation
 
-```bash
-npm run report
-```
+See: [docs/SSO.md](./docs/SSO.md)
 
 ---
 
-## AI Demo (Optional)
+## Use as a Template (Recommended)
 
-Generate stable locator suggestions (JSON output):
+Click **Use this template** on GitHub to generate a new repo for your application, then:
+
+1) `npm install`
+2) `cp .env.example .env` and set `BASE_URL`
+3) `npm test`
+
+---
+
+## Optional: AI Locator Suggestions (OpenAI) (Experimental)
+
+This starter includes an optional AI helper that suggests stable Playwright locators for a given page + goal.
+
+### 1) Enable AI locally (do not commit secrets)
+
+```env
+AI_ENABLED=true
+OPENAI_API_KEY=your_real_key_here
+OPENAI_MODEL=gpt-4o-mini
+```
+
+Notes:
+- Never commit your real API key.
+- `.env` is ignored by `.gitignore`.
+
+### 2) Run the AI locator tool
 
 ```bash
 npm run ai:locators -- https://playwright.dev "get started link"
 ```
 
-> AI is **disabled by default**. To enable it locally, set `AI_ENABLED=true` and add your `OPENAI_API_KEY` in `.env`.
-> Never commit real secrets to Git.
-
----
-
-## Optional: Authenticated Mode (Non-SSO / SSO)
-
-This framework supports optional login session reuse using Playwright **storageState**.
-
-### Public apps (no login)
-
-```bash
-npm test
-```
-
-### Authenticated apps (Non-SSO or SSO)
-
-#### 1) Generate auth state once (headed)
-
-```bash
-npm run auth:setup
-```
-
-#### 2) Run tests using the authenticated configuration
-
-```bash
-npm run test:auth
-```
-
-Auth state is stored at:
-
-```text
-.auth/storageState.json
-```
-
-Important:
-
-- Do NOT commit `.auth/storageState.json` to Git
-- Treat it like a password/session cookie
-
-SSO Documentation: see **docs/SSO.md**
+Output is JSON (suggested locators + reasoning). Always validate against your target app—some suggestions (like `getByTestId`) depend on the app having those attributes.
 
 ---
 
@@ -206,15 +162,14 @@ src/
   pages/        # Page Objects (POM)
   fixtures/     # Custom Playwright fixtures
   utils/        # Env/config helpers
-  tools/        # CLI tools (optional)
 
 tests/
   auth/         # Auth setup for storageState (optional)
   example.spec.ts
 
 docs/
-  START_HERE.md
   SSO.md
+  START_HERE.md
 
 playwright.config.ts
 playwright.config.auth.ts
@@ -225,17 +180,51 @@ README.md
 
 ---
 
+## Authentication Support (Non-SSO and SSO)
+
+This framework supports optional login session reuse using Playwright **storageState**.
+
+### Public apps (no login)
+
+```bash
+npm test
+```
+
+### Authenticated apps (Non-SSO or SSO)
+
+#### 1) Generate auth state once (headed)
+
+```bash
+npm run auth:setup
+```
+
+#### 2) Run tests using the authenticated configuration
+
+```bash
+npm run test:auth
+```
+
+Auth state is stored at:
+
+```text
+.auth/storageState.json
+```
+
+Important:
+- Do NOT commit `.auth/storageState.json` to Git
+- Treat it like a password/session cookie
+
+---
+
 ## CI (GitHub Actions)
 
 This repo includes a GitHub Actions workflow that runs tests on every push and pull request.
 
 Workflow file:
-
 - `.github/workflows/ci.yml`
 
 Notes:
-
-- CI runs in **public mode** by default (no login required)
+- CI runs in **public mode** by default (no login required).
 - Authenticated/SSO flows should be tested locally using:
   - `npm run auth:setup`
   - `npm run test:auth`
@@ -248,10 +237,9 @@ Notes:
 
 Make sure your test file name ends with:
 
-- `.spec.ts`
+- `.spec.ts` (recommended)
 
 Example:
-
 - `tests/login.spec.ts`
 
 ### 2) My auth tests fail with missing storageState.json
@@ -265,14 +253,13 @@ npm run test:auth
 
 ### 3) CI fails but local passes
 
-CI runs in Linux and headless mode. Try:
+CI runs on Linux and headless mode. Try reproducing locally:
 
 ```bash
 npx playwright test --headed
 ```
 
-Also prefer stable locators:
-
+Prefer stable locators:
 - `getByRole`
 - `getByLabel`
 - `getByText`
@@ -286,7 +273,7 @@ npm run auth:setup
 npm run test:auth
 ```
 
-See: `docs/SSO.md`
+See: [docs/SSO.md](./docs/SSO.md)
 
 ---
 
