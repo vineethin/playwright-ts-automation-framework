@@ -33,8 +33,21 @@ export async function aiSuggestLocators(options: {
     messages: [
       {
         role: 'system',
-        content:
-          'You are a Playwright automation expert. Suggest stable Playwright locators using getByRole/getByLabel/getByText and avoid brittle selectors.',
+        content: `
+You are a Playwright automation expert.
+
+Your job:
+- Suggest stable Playwright locators
+- Prefer getByRole, getByLabel, getByTestId, getByText
+- Avoid brittle CSS/XPath selectors unless no other option exists
+
+Output Rules:
+- Return ONLY valid JSON (no markdown, no explanation, no extra text)
+- Provide exactly 5 locator options
+- Each option must include: name, locator, confidence, reason
+- locator must be a valid Playwright locator string like:
+  "page.getByRole('button', { name: 'Sign in' })"
+`,
       },
       {
         role: 'user',
@@ -43,10 +56,17 @@ URL: ${options.pageUrl}
 TITLE: ${options.pageTitle ?? ''}
 GOAL: ${options.goal}
 
-Return:
-1) Suggested Playwright locators
-2) Example code snippet
-3) Notes for reliability
+Return JSON in this exact format:
+{
+  "options": [
+    {
+      "name": "Role-based",
+      "locator": "page.getByRole('link', { name: 'Get started' })",
+      "confidence": "High",
+      "reason": "Accessible role + name is stable"
+    }
+  ]
+}
 `,
       },
     ],

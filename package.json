@@ -14,7 +14,8 @@
     "test:webkit": "playwright test --project=webkit",
     "report": "playwright show-report",
     "auth:setup": "playwright test \"tests/auth/auth.setup.spec.ts\" --project=chromium --headed",
-    "test:auth": "playwright test --config=playwright.config.auth.ts"
+    "test:auth": "playwright test --config=playwright.config.auth.ts",
+    "ai:locators": "tsx src/tools/ai-locators.ts"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +25,7 @@
     "@playwright/test": "^1.57.0",
     "@types/node": "^25.0.9",
     "dotenv": "^17.2.3",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
