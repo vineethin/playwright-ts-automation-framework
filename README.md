@@ -1,4 +1,4 @@
-New here? Start with: `docs/START_HERE.md`
+👉 New here? Start with: [docs/START_HERE.md](./docs/START_HERE.md)
 
 # Playwright TypeScript Automation Framework (Starter)
 [![CI](https://github.com/vineethin/playwright-ts-automation-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/vineethin/playwright-ts-automation-framework/actions/workflows/ci.yml)
