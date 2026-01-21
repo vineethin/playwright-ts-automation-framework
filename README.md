@@ -169,6 +169,19 @@ Important:
 
 ---
 
+## CI (GitHub Actions)
+This repo includes a GitHub Actions workflow that runs tests on every push and pull request.
+
+Workflow file:
+- `.github/workflows/ci.yml`
+
+Note:
+- CI runs in **public mode** by default (no login required)
+- Authenticated/SSO flows should be tested locally using:
+  - `npm run auth:setup`
+  - `npm run test:auth`
+
+
 ## Contributing
 Contributions are welcome.
 
