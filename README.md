@@ -76,6 +76,45 @@ See: `docs/SSO.md`
 
 ---
 
+## Optional AI: Locator Suggestions (OpenAI)
+
+This starter includes an **optional** AI helper that suggests stable Playwright locators for a given page + goal.
+
+### 1) Enable AI locally (do not commit secrets)
+
+Copy the example file:
+
+```bash
+cp .env.example .env
+
+Edit .env and set:
+
+AI_ENABLED=true
+OPENAI_API_KEY=your_real_key_here
+OPENAI_MODEL=gpt-4o-mini
+
+
+Important:
+
+Never commit your real API key.
+
+.env is already ignored by .gitignore.
+
+2) Run the AI locator tool
+npm run ai:locators -- https://playwright.dev "get started link"
+
+
+Output is returned as JSON (suggested locators + reasoning). Always validate against your target app—some suggestions (like getByTestId) depend on the app having those attributes.
+
+
+### Step: Verify formatting
+Run:
+
+```powershell
+npm test
+git diff
+
+
 ## NPM Scripts
 
 Run full suite:
