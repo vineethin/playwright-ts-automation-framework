@@ -1,0 +1,14 @@
+# Node
+node_modules/
+
+# Playwright outputs
+playwright-report/
+test-results/
+
+# Local environment variables (do NOT commit secrets)
+.env
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
