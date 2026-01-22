@@ -24,9 +24,15 @@ A production-style **Playwright + TypeScript** automation framework designed to 
 
 ## Getting Started (30 seconds)
 
-### 1) Install dependencies
+### Quick Setup Wizard (Recommended)
+
+This will scaffold starter files for your app (BASE_URL + optional login):
 
 ```bash
+npm run init
+
+### 1) Install dependencies
+
 npm install
 npx playwright install
 ```
