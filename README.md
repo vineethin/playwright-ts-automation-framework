@@ -9,6 +9,8 @@
 
 A production-style **Playwright + TypeScript** automation framework designed to be reusable for **any web application** (including apps using **SSO**).
 
+✅ **Open Source (MIT Licensed)** — free to use, modify, and share.
+
 ## Key Features
 
 - Page Object Model (POM)
