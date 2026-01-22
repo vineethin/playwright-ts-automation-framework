@@ -26,13 +26,15 @@ A production-style **Playwright + TypeScript** automation framework designed to 
 
 ### Quick Setup Wizard (Recommended)
 
-This will scaffold starter files for your app (BASE_URL + optional login):
+This will scaffold starter files for your app (**BASE_URL + optional login**):
 
 ```bash
 npm run init
+```
 
 ### 1) Install dependencies
 
+```bash
 npm install
 npx playwright install
 ```
@@ -69,8 +71,8 @@ See: [docs/SSO.md](./docs/SSO.md)
 
 Click **Use this template** on GitHub to generate a new repo for your application, then:
 
-1) `npm install`
-2) `cp .env.example .env` and set `BASE_URL`
+1) `npm install`  
+2) `cp .env.example .env` and set `BASE_URL`  
 3) `npm test`
 
 ---
