@@ -1,6 +1,11 @@
 import OpenAI from 'openai';
 import { env } from './env';
 
+function truncate(text: string, maxChars = 12000): string {
+  if (!text) return '';
+  return text.length > maxChars ? text.slice(0, maxChars) + '\n...[truncated]' : text;
+}
+
 export function isAIEnabled(): boolean {
   return env.aiEnabled === true;
 }
@@ -12,21 +17,21 @@ export function getOpenAIClient(): OpenAI {
     );
   }
 
-  return new OpenAI({
-    apiKey: env.openaiApiKey,
-  });
+  return new OpenAI({ apiKey: env.openaiApiKey });
 }
 
 export async function aiSuggestLocators(options: {
   pageUrl: string;
   pageTitle?: string;
   goal: string;
+  domSnippet?: string;
 }): Promise<string> {
   if (!isAIEnabled()) {
     return 'AI is disabled. Set AI_ENABLED=true in .env to enable.';
   }
 
   const client = getOpenAIClient();
+  const dom = options.domSnippet ? truncate(options.domSnippet) : 'N/A';
 
   const response = await client.chat.completions.create({
     model: env.openaiModel || 'gpt-4o-mini',
@@ -37,17 +42,20 @@ export async function aiSuggestLocators(options: {
 You are a Playwright automation expert.
 
 Your job:
-- Suggest stable Playwright locators
-- Prefer getByRole, getByLabel, getByTestId, getByText
-- Avoid brittle CSS/XPath selectors unless no other option exists
+- Suggest stable Playwright locators for the user's GOAL.
+- Use the provided DOM_SNIPPET to ground your suggestions (do not guess).
+- Prefer getByRole, getByLabel, getByTestId, getByText.
+- Avoid brittle CSS/XPath selectors unless no other option exists.
 
 Output Rules:
-- Return ONLY valid JSON (no markdown, no explanation, no extra text)
-- Provide exactly 5 locator options
-- Each option must include: name, locator, confidence, reason
-- locator must be a valid Playwright locator string like:
+- Return ONLY valid JSON (no markdown, no explanation, no extra text).
+- Provide exactly 5 locator options.
+- Each option must include: name, locator, confidence, reason.
+- "locator" must be a valid Playwright locator string like:
   "page.getByRole('button', { name: 'Sign in' })"
-`,
+- If the DOM_SNIPPET does not contain enough info, still return 5 best-effort options,
+  but lower confidence and explain why in "reason".
+`.trim(),
       },
       {
         role: 'user',
@@ -55,6 +63,9 @@ Output Rules:
 URL: ${options.pageUrl}
 TITLE: ${options.pageTitle ?? ''}
 GOAL: ${options.goal}
+
+DOM_SNIPPET (truncated):
+${dom}
 
 Return JSON in this exact format:
 {
@@ -67,7 +78,7 @@ Return JSON in this exact format:
     }
   ]
 }
-`,
+`.trim(),
       },
     ],
   });

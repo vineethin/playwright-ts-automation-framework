@@ -15,7 +15,8 @@
     "report": "playwright show-report",
     "auth:setup": "playwright test \"tests/auth/auth.setup.spec.ts\" --project=chromium --headed",
     "test:auth": "playwright test --config=playwright.config.auth.ts",
-    "ai:locators": "tsx src/tools/ai-locators.ts"
+    "ai:locators": "tsx src/tools/ai-locators.ts",
+    "ai:locators:dom": "tsx src/tools/ai-locators-dom.ts"
   },
   "keywords": [],
   "author": "",
